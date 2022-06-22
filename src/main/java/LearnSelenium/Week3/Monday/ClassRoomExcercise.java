@@ -37,7 +37,7 @@ public class ClassRoomExcercise {
 
     @After
     public void tearDown() throws Exception {
-//        driver.quit();
+        driver.quit();
     }
 
     @Test
