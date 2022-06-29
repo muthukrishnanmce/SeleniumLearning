@@ -7,12 +7,15 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.v95.network.Network;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
-public class LearnJS {
+public class CDPCommandLearning {
+
     ChromeDriver driver;
 
     @Before
@@ -27,28 +30,21 @@ public class LearnJS {
 
     @After
     public void tearDown() throws Exception {
-        driver.quit();
+//        driver.quit();
     }
 
     @Test
-    public void JSTest() throws AWTException {
-        driver.get("https://jqueryui.com/resizable/");
-        Robot ro = new Robot();
-        ro.keyPress(KeyEvent.VK_CONTROL);
-        ro.keyPress(KeyEvent.VK_ADD);
-        ro.keyRelease(KeyEvent.VK_ADD);
-        ro.keyRelease(KeyEvent.VK_CONTROL);
+    public void testCDP() {
+        DevTools devTools = driver.getDevTools();
+        devTools.createSession();
 
+        Map<String,Object> gl = new HashMap<>();
+        gl.put("longitude",40.7128);
+        gl.put("latitude",74.0060);
+        gl.put("accuracy",1);
 
-    }
-
-    @Test
-    //Page status
-    public void PageTest() {
-        driver.get("https://jqueryui.com/resizable/");
-        String status = driver.executeScript("return document.readyState").toString();
-        System.out.println(status);
-
+        driver.executeCdpCommand("Emulation.setGeolocationOverride",gl);
+        driver.get("https://www.amazon.com/");
     }
 
 }

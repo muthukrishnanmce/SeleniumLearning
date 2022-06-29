@@ -7,8 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
 
@@ -51,6 +53,24 @@ public class Assesment3 {
         Assert.assertTrue(driver.findElement(By.xpath("//span[text()='Task']")).isDisplayed());
         System.out.println(driver.findElement(By.xpath("//span[text()='Task']")).getText());
 
+
+
+    }
+
+    @Test
+    public void exercise2(){
+        driver.get("https://login.salesforce.com");
+        driver.findElement(By.xpath("//input[@id='username']")).sendKeys("ramkumar.ramaiah@testleaf.com");
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("Password@123");
+        driver.findElement(By.xpath("//input[@id='Login']")).click();
+
+        Actions build = new Actions(driver);
+        WebElement toggle = driver.findElement(By.xpath("//span[text()='App Launcher']/.."));
+        build.click(toggle);
+        driver.findElement(By.xpath("//button[text()='View All']")).click();
+        driver.findElement(By.xpath("//p[text()='Content']/..")).click();
+
+        driver.findElement(By.xpath("//span[text()=\"Today’s Tasks\"]/ancestor::article//span[text()='View All']")).click();
 
 
     }
